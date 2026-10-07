@@ -10,9 +10,6 @@ const isoDateTime = z.iso.datetime({ offset: true });
 
 const isValidIsoDate = (value) => isoDateTime.safeParse(value).success;
 
-const isoDateString = z.string().refine(isValidIsoDate, {
-  message: 'Must be a valid ISO 8601 date string',
-});
 
 const nonNegativeInt = z.coerce.number().int().nonnegative();
 
@@ -29,8 +26,8 @@ export const createMatchSchema = z
     sport: z.string().trim().min(1),
     homeTeam: z.string().trim().min(1),
     awayTeam: z.string().trim().min(1),
-    startTime: isoDateString,
-    endTime: isoDateString,
+    startTime: z.iso.datetime(),
+    endTime: z.iso.datetime(),
     homeScore: nonNegativeInt.optional(),
     awayScore: nonNegativeInt.optional(),
   })
