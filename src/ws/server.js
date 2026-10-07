@@ -21,7 +21,7 @@ export function attachWebSocketServer(server) {
     path: "/ws",
     maxPayload: 1024 * 1024,
   });
-  wss.on("connection", async (socket) => {
+  wss.on("connection", async (socket, req) => {
     if (wsArcjet) {
       try {
         const decision = await wsArcjet.protect(req);
